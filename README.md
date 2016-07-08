@@ -115,7 +115,7 @@ Default value: `'[
 				}
 			]'`
 
-A Array of breakpoints that is used to generate the various screenshots for each supplied link.
+An Array of breakpoints that is used to generate the various screenshots for each supplied link.
 
 ### Usage Examples
 
