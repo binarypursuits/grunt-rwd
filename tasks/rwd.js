@@ -62,7 +62,7 @@ module.exports = function (grunt) {
 
 			grunt.util.spawn({
 				cmd: "casperjs",
-				args: ["./tasks/scripts/adaptive.js", link.target, link.name],
+				args: [__dirname + "/scripts/adaptive.js", link.target, link.name],
 				fallback: function (error, result, code)
 				{
 					if (error)
