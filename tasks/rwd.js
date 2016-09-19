@@ -60,7 +60,7 @@ module.exports = function (grunt) {
 
 			//fs.writeFileSync(__dirname + "/breakpoints.json", JSON.stringify(options.breakpoints));
 
-			breakpoints.forEach(function(breakpoint){
+			options.breakpoints.forEach(function(breakpoint){
 				grunt.util.spawn({
 					cmd: "casperjs",
 					args: [__dirname + "/scripts/adaptive.js", link.target, link.name, breakpoint.width, breakpoint.height],
