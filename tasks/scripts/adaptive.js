@@ -1,6 +1,6 @@
 "use-strict";
 
-var casper = require('casper').create();
+var Casper = require('casper');
 
 var url, page, width, height;
 
@@ -29,6 +29,14 @@ if (casper.cli.args.length < 2) {
 	height = casper.cli.args[3] || 768;
 }
 
+var casper = Casper.create({
+	viewportSize: {
+		"width": width,
+		"height": height
+	},
+	verbose: true
+});
+
 casper.start(url, function () {
 	this.echo('Current location is ' + this.getCurrentUrl(), 'info');
 });
@@ -36,7 +44,7 @@ casper.start(url, function () {
 casper.then(function () {
 
 	this.then(function () {
-		this.breakpoint(width, height);
+		this.viewport(width, height);
 	});
 	
 	this.thenOpen(url, function () {
@@ -65,6 +73,11 @@ casper.then(function () {
 
 casper.then(function () {
 	this.exit();
+});
+
+casper.onError(function(msg, backtrace){
+	this.echo(msg);
+	this.echo(backtrace);
 });
 
 casper.run();
