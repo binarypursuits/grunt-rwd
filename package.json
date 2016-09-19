@@ -1,7 +1,7 @@
 {
   "name": "grunt-rwd",
   "description": "Capture various screenshots for any array of URLs for visual RWD confirmation",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "homepage": "",
   "author": {
     "name": "Brian Bolli",
