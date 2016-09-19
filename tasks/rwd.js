@@ -58,34 +58,37 @@ module.exports = function (grunt) {
 
 		this.data.links.forEach(function (link) {
 
-			fs.writeFileSync(__dirname + "/breakpoints.json", JSON.stringify(options.breakpoints));
+			//fs.writeFileSync(__dirname + "/breakpoints.json", JSON.stringify(options.breakpoints));
 
-			grunt.util.spawn({
-				cmd: "casperjs",
-				args: [__dirname + "/scripts/adaptive.js", link.target, link.name],
-				fallback: function (error, result, code)
-				{
-					if (error)
+			breakpoints.forEach(function(breakpoint){
+				grunt.util.spawn({
+					cmd: "casperjs",
+					args: [__dirname + "/scripts/adaptive.js", link.target, link.name, breakpoint.width, breakpoint.height],
+					fallback: function (error, result, code)
 					{
-						return grunt.fail.fatal(error);
+						if (error)
+						{
+							return grunt.fail.fatal(error);
+						}
+
+						console.log("result -> ", result);
+						console.log("code -> ", code);
+					}
+				},
+				function () {
+
+					current++;
+
+					grunt.log.writeln("Finished link " + current);
+
+					if (current === length)
+					{
+						done();
 					}
 
-					console.log("result -> ", result);
-					console.log("code -> ", code);
-				}
-			},
-			function () {
-
-				current++;
-
-				grunt.log.writeln("Finished link " + current);
-
-				if (current === length)
-				{
-					done();
-				}
-
+				});
 			});
+			
 		});
 
 	});

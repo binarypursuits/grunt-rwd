@@ -1,9 +1,8 @@
 "use-strict";
 
 var casper = require('casper').create();
-var breakpoints = require('./breakpoints.json');
 
-var url, page;
+var url, page, width, height;
 
 var pad = function (number)
 {
@@ -26,17 +25,19 @@ if (casper.cli.args.length < 2) {
 } else {
 	url = casper.cli.args[0];
 	page = casper.cli.args[1];
+	width = casper.cli.args[2] || 1024;
+	height = casper.cli.args[3] || 768;
 }
 
 casper.start(url, function () {
 	this.echo('Current location is ' + this.getCurrentUrl(), 'info');
 });
 
-casper.each(breakpoints, function (casper, breakpoint) {
+casper.then(function () {
 
-	this.then(function () {
-		this.breakpoint(breakpoint.width, breakpoint.height);
-	});
+	//this.then(function () {
+	//	this.breakpoint(width, height);
+	//});
 	
 	this.thenOpen(url, function () {
 		this.wait(5000);
@@ -51,8 +52,8 @@ casper.each(breakpoints, function (casper, breakpoint) {
 			return document.body.clientWidth;
 		});
 		
-		this.echo('Screenshot for ' + breakpoint.name + ' (' + breakpoint.width + 'x' + breakpoint.height + ')', 'info');
-		this.capture('./build/screenshots/' + screenshotDateTime + '/' + page + '/' + breakpoint.name + '-' + breakpoint.width + 'x' + breakpoint.height + '.png', {
+		this.echo('Screenshot for ' + page + ' (' + width + 'x' + height + ')', 'info');
+		this.capture('./build/screenshots/' + screenshotDateTime + '/' + page + '/' + width + 'x' + height + '.png', {
 			top: 0,
 			left: 0,
 			width: _width,
