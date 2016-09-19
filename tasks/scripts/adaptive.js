@@ -35,9 +35,9 @@ casper.start(url, function () {
 
 casper.then(function () {
 
-	//this.then(function () {
-	//	this.breakpoint(width, height);
-	//});
+	this.then(function () {
+		this.breakpoint(width, height);
+	});
 	
 	this.thenOpen(url, function () {
 		this.wait(5000);
