@@ -53,7 +53,7 @@ module.exports = function (grunt) {
 			]
 		});
 
-		var length = this.data.links.length;
+		var length = this.data.links.length * options.breakpoints.length;
 		var current = 0;
 
 		this.data.links.forEach(function (link) {
