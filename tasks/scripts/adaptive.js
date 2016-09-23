@@ -19,7 +19,8 @@ casper.then(function () {
 	});
 	
 	this.thenOpen(url, function () {
-		this.wait(5000);
+		//this.wait(5000);
+		this.echo('Screenshot for ' + name + ' (' + width + 'x' + height + ')', 'info');
 	});
 	
 	this.then(function () {
