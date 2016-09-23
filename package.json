@@ -1,7 +1,8 @@
 {
   "name": "grunt-rwd",
-  "description": "Capture various screenshots for any array of URLs for visual RWD confirmation",
-  "version": "0.1.6",
+  "description": "Build task to capture images of various website pages and viewports to test responsive web design.",
+  "keywords" : ["rwd", "responsive web design", "screen capture", "grunt", "gruntjs"],
+  "version": "0.1.7",
   "homepage": "",
   "author": {
     "name": "Brian Bolli",

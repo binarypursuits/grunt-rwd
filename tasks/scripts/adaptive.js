@@ -1,43 +1,14 @@
-"use-strict";
+"use strict";
 
-var Casper = require('casper');
+var casper = require('casper').create();
 
-var url, page, width, height;
+var path = casper.cli.args[0];
+var url = casper.cli.args[1];
+var name = casper.cli.args[2];
+var width = casper.cli.args[3];
+var height = casper.cli.args[4];
 
-var pad = function (number)
-{
-	var r = String(number);
-	if (r.length === 1)
-	{
-		r = '0' + r;
-	}
-	return r;
-};
-
-var screenshotNow = new Date(),
-	screenshotDateTime = screenshotNow.getFullYear() + pad(screenshotNow.getMonth() + 1) + pad(screenshotNow.getDate()) + '-' + pad(screenshotNow.getHours()) + pad(screenshotNow.getMinutes());
-
-if (casper.cli.args.length < 2) {
-	casper
-		.echo("Usage: $ casperjs adaptive.js http://example.com homepage")
-		.exit(1)
-		;
-} else {
-	url = casper.cli.args[0];
-	page = casper.cli.args[1];
-	width = casper.cli.args[2] || 1024;
-	height = casper.cli.args[3] || 768;
-}
-
-var casper = Casper.create({
-	viewportSize: {
-		"width": width,
-		"height": height
-	},
-	verbose: true
-});
-
-casper.start(url, function () {
+casper.start(url, function() {
 	this.echo('Current location is ' + this.getCurrentUrl(), 'info');
 });
 
@@ -60,13 +31,15 @@ casper.then(function () {
 			return document.body.clientWidth;
 		});
 		
-		this.echo('Screenshot for ' + page + ' (' + width + 'x' + height + ')', 'info');
-		this.capture('./build/screenshots/' + screenshotDateTime + '/' + page + '/' + width + 'x' + height + '.png', {
+		this.echo('Screenshot for ' + name + ' (' + width + 'x' + height + ')', 'info');
+		
+		this.capture(path + '/' + name + '/' + width + 'x' + height + '.png', {
 			top: 0,
 			left: 0,
 			width: _width,
 			height: _height
 		});
+	
 	});
 	
 });
@@ -75,15 +48,7 @@ casper.then(function () {
 	this.exit();
 });
 
-casper.onError(function(msg, backtrace){
-	this.echo(msg);
-	this.echo(backtrace);
-});
 
 casper.run();
-
-
-
-
 
 
