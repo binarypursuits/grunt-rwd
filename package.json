@@ -1,8 +1,10 @@
 {
   "name": "grunt-rwd",
   "description": "Build task to capture images of various website pages and viewports to test responsive web design.",
-  "keywords" : ["rwd", "responsive web design", "screen capture", "grunt", "gruntjs"],
-  "version": "0.1.7",
+  "keywords": [
+    "gruntplugin"
+  ],
+  "version": "0.1.9",
   "homepage": "",
   "author": {
     "name": "Brian Bolli",
@@ -33,10 +35,8 @@
     "grunt-contrib-nodeunit": "^0.3.3",
     "grunt": "~0.4.5"
   },
-  "keywords": [
-    "gruntplugin"
-  ],
   "dependencies": {
+    "bluebird": "^3.4.6",
     "casperjs": "^1.1.2"
   }
 }

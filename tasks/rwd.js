@@ -13,6 +13,17 @@
 
 	module.exports = function (grunt) {
 
+		/**
+		 * @constructor
+		 * 
+		 * @param {String} destination
+		 * @param {String} url
+		 * @param {String} name
+		 * @param {Integer} width
+		 * @param {Integer} height
+		 * 
+		 * @returns {ScrapeParams}
+		 */
 		function ScrapeParams(destination, url, name, width, height)
 		{
 			this.destination = destination;
@@ -20,9 +31,18 @@
 			this.name = name;
 			this.width = width;
 			this.height = height;
+			
+			return this;
 		}
 
-		var spawnPromise = function(params)
+		/**
+		 * @method execPromise
+		 * 
+		 * @param {ScrapeParams} params
+		 * 
+		 * @returns {Promise}
+		 */
+		var execPromise = function(params)
 		{
 			return new Promise(function(resolve, reject){
 				exec("casperjs ./tasks/scripts/adaptive.js " + params.destination + " " + params.url + " " + params.name + " " + params.width + " " + params.height, function(error, stdout, stderr){
@@ -32,6 +52,15 @@
 			});
 		};
 		
+		/**
+		 * @method parseBreakpoints
+		 * 
+		 * @param {Object} endpoint
+		 * @param {Array} breakpoints
+		 * @param {String} destination
+		 * 
+		 * @returns {Promise}
+		 */
 		var parseBreakpoints = function(endpoint, breakpoints, destination)
 		{
 			var length = breakpoints.length;
@@ -54,7 +83,7 @@
 						var task = function()
 						{
 							var params = new ScrapeParams(destination, endpoint.url, endpoint.name, breakpoint.width, breakpoint.height);
-							return spawnPromise(params)
+							return execPromise(params)
 								.then(function(result){
 									grunt.log.writeln(result);
 									if (++completed === length)
@@ -73,6 +102,15 @@
 			});
 		};
 
+		/**
+		 * @method parseEndpoints
+		 * 
+		 * @param {Array} endpoints
+		 * @param {Array} breakpoints
+		 * @param {String} destination
+		 * 
+		 * @returns {Promise}
+		 */
 		var parseEndpoints = function(endpoints, breakpoints, destination)
 		{
 			var length = endpoints.length;
@@ -114,7 +152,7 @@
 			done = this.async();
 			
 			var options = this.options({
-				destination: "./build/screenshots/",
+				destination: "./screenshots/",
 				endpoints: [],
 				breakpoints: [
 					{
