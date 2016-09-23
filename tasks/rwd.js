@@ -115,17 +115,7 @@
 			
 			var options = this.options({
 				destination: "./build/screenshots/",
-				endpoints: [
-					{
-						url: 'http://hilco',
-						name: 'home'
-					},
-					{
-						url: 'http://hilco/all-items',
-						name: 'inventory'
-					}
-
-				],
+				endpoints: [],
 				breakpoints: [
 					{
 						name: "smartphone-portrait",
