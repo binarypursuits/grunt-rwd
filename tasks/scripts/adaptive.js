@@ -23,7 +23,8 @@ casper.then(function () {
 		this.echo('Screenshot for ' + name + ' (' + width + 'x' + height + ')', 'info');
 	});
 	
-	this.then(function () {
+	//this.then(function () {
+	this.on("load.finished", function(){
 		var _height = this.evaluate(function() {
 			return document.body.clientHeight;
 		});
